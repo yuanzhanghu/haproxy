@@ -219,6 +219,11 @@ struct server *map_get_server_rr(struct proxy *px, struct server *srvtoavoid)
 	if (px->lbprm.map.rr_idx < 0 || px->lbprm.map.rr_idx >= px->lbprm.tot_weight)
 		px->lbprm.map.rr_idx = 0;
 	newidx = px->lbprm.map.rr_idx;
+  if (++px->lbprm.map.rr_cnt >= 128) {
+    px->lbprm.map.rr_cnt = 0;
+  } else {
+    return px->lbprm.map.srv[newidx]; //return old server
+  }
 
 	avoided = NULL;
 	avoididx = 0; /* shut a gcc warning */

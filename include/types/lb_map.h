@@ -31,6 +31,7 @@
 struct lb_map {
 	struct server **srv;	/* the server map used to apply weights */
 	int rr_idx;		/* next server to be elected in round robin mode */
+	int rr_cnt;		/* request cnt on this server */
 	int state;		/* LB_MAP_RECALC */
 };
 
